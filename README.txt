@@ -1,36 +1,31 @@
-YAYASAN PORTAL — INSTALLABLE WEB APP (PWA)
+YAYASAN PORTAL — GITHUB PAGES INSTALL FIX (FLAT ROOT)
 
-This package is designed to let the portal be installed as a home-screen/desktop web app on supported phones and computers.
-
-FILES TO PUBLISH TO THE SAME GITHUB PAGES PUBLISHING ROOT:
+This package matches the flat file layout shown in your GitHub screenshot:
 - index.html
 - manifest.webmanifest
 - service-worker.js
-- icons/icon-192.png
-- icons/icon-512.png
+- icon-192.png
+- icon-512.png
+- CNAME (keep your existing CNAME file if it already contains portal.syayasan.edu.bn)
 
-IMPORTANT: Upload the extracted files/folders, not only the ZIP. Do not place them inside an extra nested folder. The manifest, service worker, and icons must sit beside the published index.html at the root of the site (for the custom domain https://portal.syayasan.edu.bn).
+IMPORTANT: The previous manifest expected ./icons/icon-192.png and ./icons/icon-512.png, but your GitHub repository shows icon-192.png and icon-512.png at the repository root. That mismatch caused 404 errors. This package updates the manifest and service worker to use the root-level icon files.
 
-GITHUB PAGES STEPS:
-1. Open the repository that publishes portal.syayasan.edu.bn.
-2. Go to Settings > Pages and confirm the source/publishing location (branch root, /docs, or GitHub Actions).
-3. Upload the files above into that exact publishing location, preserving the icons/ folder and exact lowercase filenames.
-4. Commit/push and wait for the Pages deployment to finish.
-5. Check these URLs and make sure each loads, not 404:
-   https://portal.syayasan.edu.bn/manifest.webmanifest
-   https://portal.syayasan.edu.bn/service-worker.js
-   https://portal.syayasan.edu.bn/icons/icon-192.png
-   https://portal.syayasan.edu.bn/icons/icon-512.png
-6. In Settings > Pages, confirm the custom domain is correct and Enforce HTTPS is enabled when available. If the browser says "Not secure", resolve the domain/DNS/certificate issue first; code cannot fix the certificate by itself.
+UPLOAD:
+1. Extract this ZIP.
+2. In the GitHub repository publishing root, upload/replace index.html, manifest.webmanifest, service-worker.js, icon-192.png, and icon-512.png.
+3. Keep the existing CNAME file with portal.syayasan.edu.bn.
+4. Commit changes and wait for GitHub Pages deployment.
 
-INSTALL:
-- Android: Open the live HTTPS site in Chrome, reload, tap the portal's Install App button or Chrome menu (⋮) > Install app / Add to Home screen.
-- Windows laptop/desktop: Open in Chrome or Edge, then use the Install icon in the address bar or browser menu.
-- macOS laptop: Use Chrome/Edge Install option where available. Safari users can add a website to the Dock on supported macOS versions.
-- iPhone/iPad: Open the live HTTPS site in Safari > Share > Add to Home Screen. iOS does not use the same Chrome install prompt as Android.
-- Other browsers/devices: Availability depends on the browser and operating system. This is a Progressive Web App, not separate native APK/EXE installers.
+TEST THESE URLS AFTER DEPLOYMENT:
+https://portal.syayasan.edu.bn/manifest.webmanifest
+https://portal.syayasan.edu.bn/service-worker.js
+https://portal.syayasan.edu.bn/icon-192.png
+https://portal.syayasan.edu.bn/icon-512.png
 
-TROUBLESHOOTING:
-- If any URL above returns 404, upload the missing file to the actual published root.
-- If the browser says "Not secure", fix HTTPS/certificate/DNS before trying to install.
-- After deployment, reload the site. If an older version persists, close the portal tabs and reopen it; service worker updates may take a moment.
+Each should load successfully, not show 404.
+
+CRITICAL HTTPS CHECK:
+Your earlier screenshots showed "Not secure" even with an https:// URL. If Chrome/Edge still shows "Not secure", the domain's TLS certificate or DNS setup must be fixed in GitHub Settings > Pages and DNS before installation will work. In Settings > Pages, confirm the custom domain and enable Enforce HTTPS when GitHub makes it available. Allow DNS/certificate provisioning time. The ZIP cannot repair DNS or a TLS certificate.
+
+ANDROID:
+After all four test URLs work and the site is securely loaded, open the portal in Chrome, reload it, then use ⋮ > Install app or Add to Home screen. Edge uses its own menu and may label the option differently. If the install option is absent, open Chrome's site info and ensure the connection is secure, then clear site data/reload.
