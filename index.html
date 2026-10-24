@@ -323,12 +323,19 @@ body.dark .clock-panel,body.dark .hijri-panel,body.dark .system-card {
 }
 
 </style>
-</head>
+
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Yayasan Portal">
+\n</head>
 <body>
 
 <header class="nav">
 
-<div class="nav-actions"><button class="small-btn" id="helpTop">Panduan ringkas ↗</button><select id="languageSelect" aria-label="Choose language" class="small-btn" style="padding:10px 9px"><option value="ms">BM</option><option value="en">EN</option></select><button class="icon-btn" id="themeBtn" aria-label="Tukar tema" title="Tukar tema">☾</button></div>
+<div class="nav-actions"><button class="small-btn" id="installAppBtn" type="button" aria-label="Install Yayasan Portal">⬇ Install App</button><button class="small-btn" id="helpTop">Panduan ringkas ↗</button><select id="languageSelect" aria-label="Choose language" class="small-btn" style="padding:10px 9px"><option value="ms">BM</option><option value="en">EN</option></select><button class="icon-btn" id="themeBtn" aria-label="Tukar tema" title="Tukar tema">☾</button></div>
 </header>
 
 <section class="hero-wrap"><div class="hero"><div class="hero-grid"><div>
@@ -623,4 +630,51 @@ body.dark .clock-panel,body.dark .hijri-panel,body.dark .system-card {
 })();
 </script>
 
-</body></html>
+
+<script>
+(() => {
+  let deferredInstallPrompt = null;
+  const installButton = document.getElementById('installAppBtn');
+  if (installButton) {
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    if (isStandalone) {
+      installButton.textContent = '✓ App Installed';
+      installButton.disabled = true;
+      installButton.setAttribute('aria-label', 'Yayasan Portal is installed');
+    }
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      installButton.hidden = false;
+      installButton.textContent = '⬇ Install App';
+    });
+    window.addEventListener('appinstalled', () => {
+      deferredInstallPrompt = null;
+      installButton.textContent = '✓ App Installed';
+      installButton.disabled = true;
+    });
+    installButton.addEventListener('click', async () => {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        return;
+      }
+      const ua = navigator.userAgent || '';
+      if (/iPhone|iPad|iPod/i.test(ua)) {
+        alert('To install on iPhone/iPad: open this website in Safari, tap Share, then choose “Add to Home Screen”.');
+      } else if (/Android/i.test(ua)) {
+        alert('Open this portal in Chrome, tap the ⋮ menu, then choose “Install app” or “Add to Home screen”. If the option is missing, make sure the portal is published over HTTPS and reload the page.');
+      } else {
+        alert('To install this portal, publish it on an HTTPS website, open it in Chrome or Edge, then use the Install icon in the address bar or the browser menu. If it still says the app cannot be installed, upload the manifest.webmanifest, service-worker.js, and icons folder together with this HTML file.');
+      }
+    });
+  }
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js').catch(err => console.warn('Service worker registration failed:', err));
+    });
+  }
+})();
+</script>
+\n</body></html>

@@ -1,0 +1,27 @@
+{
+  "id": "./",
+  "name": "Yayasan Sultan Haji Hassanal Bolkiah – Portal Teknologi Maklumat Sekolah",
+  "short_name": "Yayasan Portal",
+  "description": "Portal sistem teknologi maklumat sekolah Yayasan Sultan Haji Hassanal Bolkiah.",
+  "lang": "ms-BN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f7faf5",
+  "theme_color": "#08783e",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
