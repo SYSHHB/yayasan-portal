@@ -1,27 +1,16 @@
 {
-  "id": "./",
-  "name": "Yayasan Sultan Haji Hassanal Bolkiah – Portal Teknologi Maklumat Sekolah",
-  "short_name": "Yayasan Portal",
-  "description": "Portal sistem teknologi maklumat sekolah Yayasan Sultan Haji Hassanal Bolkiah.",
-  "lang": "ms-BN",
-  "start_url": "./",
+  "name": "SYSHHB Portal System",
+  "short_name": "SYSHHB Portal",
+  "description": "Portal sistem Yayasan Sultan Haji Hassanal Bolkiah",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "orientation": "any",
-  "background_color": "#f7faf5",
-  "theme_color": "#08783e",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#1f8a3b",
   "icons": [
-    {
-      "src": "./icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    }
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
   ]
 }
