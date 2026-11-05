@@ -1,4 +1,4 @@
-const CACHE = 'yayasan-portal-v3';
+const CACHE = 'yayasan-portal-v4';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icons/logo.png', './icons/icon-192.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)));
