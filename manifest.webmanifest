@@ -1,16 +1,17 @@
 {
+  "id": "./",
   "name": "SYSHHB Portal System",
   "short_name": "SYSHHB Portal",
-  "description": "Portal sistem Yayasan Sultan Haji Hassanal Bolkiah",
+  "description": "Yayasan Sultan Haji Hassanal Bolkiah",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#ffffff",
-  "theme_color": "#1f8a3b",
+  "background_color": "#27a047",
+  "theme_color": "#27a047",
   "icons": [
-    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
   ]
 }
