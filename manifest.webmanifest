@@ -1,17 +1,17 @@
 {
   "id": "./",
-  "name": "SYSHHB Portal System",
-  "short_name": "SYSHHB Portal",
-  "description": "Yayasan Sultan Haji Hassanal Bolkiah",
-  "start_url": "./index.html",
+  "name": "SYSHHB IT Portal System",
+  "short_name": "SYSHHB IT",
+  "description": "Quick access to SYSHHB IT services and the Gregorian and Hijri calendar.",
+  "lang": "en-BN",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "background_color": "#27a047",
   "theme_color": "#27a047",
   "icons": [
-    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-    {"src": "icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ]
 }
