@@ -139,6 +139,27 @@ main{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;justif
   .tile p{font-size:14px;-webkit-line-clamp:3}
   .tile .go{top:20px;right:20px}
 }
+
+/* ---------- 5 tiles: keep every row neat on phone and desktop ---------- */
+@media(max-width:719px){
+  .grid{gap:10px}
+  .tile{padding:12px;gap:5px}
+  .tile .ico{width:40px;font-size:22px;border-radius:14px}
+  .tile h2{font-size:13.5px}
+  .tile p{font-size:11px;-webkit-line-clamp:2}
+  .tile:last-child:nth-child(odd){grid-column:1/-1;display:grid;grid-template-columns:auto 1fr;column-gap:14px;row-gap:2px;align-items:center;padding-right:52px}
+  .tile:last-child:nth-child(odd) .ico{grid-row:1/3}
+  .tile:last-child:nth-child(odd) h2{margin:0;align-self:end}
+  .tile:last-child:nth-child(odd) p{align-self:start}
+}
+@media(min-width:720px){
+  .grid{display:flex;flex-wrap:wrap;justify-content:center;--g:18px;gap:var(--g)}
+  .tile{flex:0 0 calc((100% - 2*var(--g))/3)}
+}
+@media(min-width:1100px){
+  .grid{max-width:1180px}
+  .tile{flex:0 0 calc((100% - 4*var(--g))/5)}
+}
 </style>
 </head>
 <body>
@@ -207,7 +228,10 @@ const SYSTEMS = [
     en:{name:"SYSHHB IT Asset Inventory", desc:"IT asset inventory list and management."} },
   { icon:"📁", t:["#ece2ff","#b497ef"], url:"https://document.syayasan.edu.bn/",
     ms:{name:"SYSHHB Document Library", desc:"Muat naik, cari dan simpan dokumen dengan mudah."},
-    en:{name:"SYSHHB Document Library", desc:"Upload, search and store documents easily."} }
+    en:{name:"SYSHHB Document Library", desc:"Upload, search and store documents easily."} },
+  { icon:"🎙️", t:["#ffe0e0","#f09a9a"], url:"https://recorder.syayasan.edu.bn/",
+    ms:{name:"SYSHHB IT Recorder", desc:"Rakam mesyuarat, tukar suara kepada teks, laporan dan terjemahan."},
+    en:{name:"SYSHHB IT Recorder", desc:"Record meetings, turn voice into text, reports and translations."} }
 ];
 const HM = ["Muharram","Safar","Rabiulawal","Rabiulakhir","Jamadilawal","Jamadilakhir","Rejab","Syaaban","Ramadan","Syawal","Zulkaedah","Zulhijjah"];
 const T = {
