@@ -160,6 +160,54 @@ main{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;justif
   .grid{max-width:1180px}
   .tile{flex:0 0 calc((100% - 4*var(--g))/5)}
 }
+
+/* ================= v12: professional / interactive layer ================= */
+:root{--mw:900px}
+@media(min-width:900px){:root{--mw:1040px}}
+@media(min-width:1100px){:root{--mw:1180px}}
+.grid,.sech{max-width:var(--mw)}
+.hero>*{position:relative;z-index:1}
+.hero::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+  background:radial-gradient(360px circle at var(--hx,78%) var(--hy,0%),rgba(255,255,255,.20),transparent 60%),
+             radial-gradient(rgba(255,255,255,.11) 1.2px,transparent 1.4px) 0 0/22px 22px;
+  -webkit-mask-image:linear-gradient(180deg,#000 55%,transparent);mask-image:linear-gradient(180deg,#000 55%,transparent)}
+.sech{width:100%;margin:0 auto clamp(6px,1.2vh,12px);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 4px}
+.sech h3{margin:0;font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted)}
+.sum{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:var(--shadow);transition:transform .15s}
+.sum:active{transform:scale(.95)}
+.sum .rf{display:inline-block;color:var(--muted);transition:transform .5s}
+.sum.spin .rf{transform:rotate(360deg)}
+.sd{width:8px;height:8px;border-radius:50%;display:inline-block;background:#f59e0b}
+.sd.on{background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
+.sd.off{background:#ef4444}.sd.part{background:#f59e0b}
+.tile>*{position:relative}
+.tile::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--t2) 28%,transparent),transparent 70%)}
+.tile:hover::before{opacity:1}
+.tile:hover{border-color:var(--t2);box-shadow:0 1px 2px rgba(16,36,26,.06),0 18px 34px -14px color-mix(in srgb,var(--t2) 70%,transparent)}
+.tile .ico{overflow:visible}
+.dot{position:absolute;right:-4px;bottom:-4px;width:15px;height:15px;border-radius:50%;border:3px solid var(--card);background:#f59e0b;transition:background .3s}
+.dot.on{background:#22c55e}.dot.off{background:#ef4444}.dot.chk{animation:chk 1s ease-in-out infinite}
+@keyframes chk{50%{opacity:.35}}
+.stat{display:none;align-items:center;gap:7px;margin-top:auto;padding-top:6px;font-size:12px;font-weight:700;color:var(--muted)}
+.stat i{width:7px;height:7px;border-radius:50%;background:#f59e0b;flex:none}
+.stat.on i{background:#22c55e}.stat.off i{background:#ef4444}.stat.on{color:#16a34a}.stat.off{color:#dc2626}
+:root[data-theme="dark"] .stat.on{color:#4ade80}
+.kb{display:none}
+.todaybtn{margin-top:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:12px;padding:8px 16px;font-weight:700;font-size:13px;cursor:pointer}
+.pfoot{display:none}
+@media(min-width:720px){
+  .stat{display:flex}
+  .pfoot{flex:none;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;padding:0 16px 18px;font-size:12px;color:var(--muted)}
+  .pfoot kbd{font:inherit;font-weight:800;border:1px solid var(--line);border-bottom-width:2px;background:var(--card);border-radius:6px;padding:1px 6px;color:var(--text)}
+  .tile .kb{display:grid;position:absolute;right:56px;top:22px;min-width:22px;height:22px;place-items:center;border-radius:7px;background:var(--bg);color:var(--muted);font-size:11px;font-weight:800;opacity:0;transition:opacity .2s}
+  .tile:hover .kb{opacity:1}
+}
+@media(max-width:719px){
+  .sech{margin-bottom:6px}.sech h3{font-size:11px}
+  .sum{padding:4px 10px;font-size:11.5px}
+}
+@media(prefers-reduced-motion:reduce){.hero::before{-webkit-mask-image:none}}
 </style>
 </head>
 <body>
@@ -190,12 +238,17 @@ main{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;justif
   </div>
 </header>
 
-<main><section class="grid" id="grid"></section></main>
+<main>
+  <div class="sech"><h3 data-i18n="sys">Sistem</h3><button class="sum" id="sum" aria-label="Refresh status"><i class="sd" id="sumd"></i><span id="sumt">…</span><span class="rf">↻</span></button></div>
+  <section class="grid" id="grid"></section>
+</main>
 
 <div class="foot" id="foot">
   <button class="btn ghost" id="installLink" style="display:none" data-i18n="installBtn">📲 Pasang Aplikasi</button>
   <span id="iosTip" style="display:none" data-i18n="ios"></span>
 </div>
+
+<footer class="pfoot"><span id="kbhint" data-i18n="kbhint"></span><span>© Yayasan Sultan Haji Hassanal Bolkiah</span></footer>
 
 <div class="calwrap" id="calwrap">
   <div class="cal" id="cal">
@@ -203,6 +256,7 @@ main{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;justif
     <div class="calhead"><button id="prev" aria-label="Prev">‹</button><div id="calt"></div><button id="next" aria-label="Next">›</button></div>
     <div class="cg" id="cg"></div>
     <div class="adj"><span data-i18n="adj">Laras Hijrah (hari):</span><button id="hm_">−</button><b id="hoff">0</b><button id="hp">+</button></div>
+    <button class="todaybtn" id="todaybtn" data-i18n="today">Hari ini</button>
     <button class="closecal" id="closecal" data-i18n="close">Tutup</button>
   </div>
 </div>
@@ -235,13 +289,13 @@ const SYSTEMS = [
 ];
 const HM = ["Muharram","Safar","Rabiulawal","Rabiulakhir","Jamadilawal","Jamadilakhir","Rejab","Syaaban","Ramadan","Syawal","Zulkaedah","Zulhijjah"];
 const T = {
- ms:{title:"SYSHHB IT Portal",greg:"Masihi",hijri:"Hijrah",adj:"Laras Hijrah (hari):",close:"Tutup",
+ ms:{title:"SYSHHB IT Portal",sys:"Sistem",online:"Dalam talian",offline:"Luar talian",chk:"Menyemak…",today:"Hari ini",allOn:"dalam talian",kbhint:"Tekan <kbd>1</kbd>–<kbd>5</kbd> untuk buka pantas",greg:"Masihi",hijri:"Hijrah",adj:"Laras Hijrah (hari):",close:"Tutup",
    installBtn:"📲 Pasang Aplikasi",installTitle:"Pasang SYSHHB IT Portal",installText:"Akses pantas dari skrin utama.",install:"Pasang",
    ios:"iPhone/iPad: ketik Kongsi ⬆️ kemudian “Tambah ke Skrin Utama”.",other:"EN",pm:"PTG",am:"PG",
    days:["Ahad","Isnin","Selasa","Rabu","Khamis","Jumaat","Sabtu"],dshort:["Ahd","Isn","Sel","Rab","Kha","Jum","Sab"],
    months:["Januari","Februari","Mac","April","Mei","Jun","Julai","Ogos","September","Oktober","November","Disember"],
    g:["Selamat pagi ☀️","Selamat tengah hari 🌤️","Selamat petang 🌇","Selamat malam 🌙"]},
- en:{title:"SYSHHB IT Portal",greg:"Gregorian",hijri:"Hijri",adj:"Hijri adjust (days):",close:"Close",
+ en:{title:"SYSHHB IT Portal",sys:"Systems",online:"Online",offline:"Offline",chk:"Checking…",today:"Today",allOn:"online",kbhint:"Press <kbd>1</kbd>–<kbd>5</kbd> to open quickly",greg:"Gregorian",hijri:"Hijri",adj:"Hijri adjust (days):",close:"Close",
    installBtn:"📲 Install App",installTitle:"Install SYSHHB IT Portal",installText:"Quick access from your home screen.",install:"Install",
    ios:"iPhone/iPad: tap Share ⬆️ then “Add to Home Screen”.",other:"BM",pm:"PM",am:"AM",
    days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],dshort:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
@@ -314,10 +368,15 @@ let first=true;
 function render(){
   const t=T[lang];
   document.documentElement.lang=lang;document.title=t.title;
-  document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t[el.dataset.i18n]);
+  document.querySelectorAll('[data-i18n]').forEach(el=>el.innerHTML=t[el.dataset.i18n]);
   $('#lang').textContent=t.other;
-  $('#grid').innerHTML=SYSTEMS.map((s,i)=>`<a class="tile${first?' rise':''}" href="${s.url}" target="_blank" rel="noopener" style="--t1:${s.t[0]};--t2:${s.t[1]};animation-delay:${i*70}ms">
-    <div class="ico">${s.icon}</div><h2>${s[lang].name}</h2><p>${s[lang].desc}</p><span class="go">↗</span></a>`).join('');
+  $('#grid').innerHTML=SYSTEMS.map((s,i)=>`<a class="tile${first?' rise':''}" href="${s.url}" target="_blank" rel="noopener" data-i="${i}" style="--t1:${s.t[0]};--t2:${s.t[1]};animation-delay:${i*70}ms">
+    <div class="ico">${s.icon}<span class="dot chk"></span></div><h2>${s[lang].name}</h2><p>${s[lang].desc}</p><div class="stat"><i></i><span></span></div><span class="kb">${i+1}</span><span class="go">↗</span></a>`).join('');
+  document.querySelectorAll('.tile').forEach(c=>{
+    c.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');});
+    c.addEventListener('pointerdown',()=>{try{navigator.vibrate&&navigator.vibrate(8)}catch(_){}});
+  });
+  paintStatus();
   first=false;
   lastSec=-1;updateDates();if($('#calwrap').classList.contains('open'))drawCal();
 }
@@ -325,6 +384,47 @@ $('#lang').onclick=()=>{lang=lang==='ms'?'en':'ms';store.set('lang',lang);render
 $('#theme').onclick=()=>{const cur=document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
   const nx=cur==='dark'?'light':'dark';document.documentElement.dataset.theme=nx;store.set('theme',nx);};
 const th=store.get('theme',null);if(th)document.documentElement.dataset.theme=th;
+
+
+/* ---- live status of each system ---- */
+const st=SYSTEMS.map(()=>({s:'chk',ms:0}));
+function paintStatus(){
+  const t=T[lang];let on=0,done=0;
+  document.querySelectorAll('.tile').forEach(c=>{
+    const x=st[+c.dataset.i];
+    c.querySelector('.dot').className='dot '+x.s;
+    const so=c.querySelector('.stat');so.className='stat '+(x.s==='chk'?'':x.s);
+    so.querySelector('span').textContent=x.s==='on'?t.online+' · '+x.ms+' ms':x.s==='off'?t.offline:t.chk;
+  });
+  st.forEach(x=>{if(x.s!=='chk')done++;if(x.s==='on')on++;});
+  $('#sumd').className='sd '+(done<st.length?'part':on===st.length?'on':on===0?'off':'part');
+  $('#sumt').textContent=done<st.length?t.chk:on+'/'+st.length+' '+t.allOn;
+}
+async function checkOne(i){
+  const c=new AbortController(),to=setTimeout(()=>c.abort(),7000),t0=performance.now();
+  try{await fetch(SYSTEMS[i].url,{mode:'no-cors',cache:'no-store',signal:c.signal});st[i]={s:'on',ms:Math.round(performance.now()-t0)};}
+  catch(e){st[i]={s:'off',ms:0};}
+  clearTimeout(to);
+}
+async function checkAll(){
+  st.forEach(x=>x.s='chk');paintStatus();
+  await Promise.all(SYSTEMS.map((_,i)=>checkOne(i).then(paintStatus)));
+}
+$('#sum').onclick=()=>{const b=$('#sum');b.classList.add('spin');setTimeout(()=>b.classList.remove('spin'),600);checkAll();};
+addEventListener('online',checkAll);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkAll();});
+setInterval(()=>{if(!document.hidden)checkAll();},90000);
+
+/* ---- hero light follows the pointer (desktop) ---- */
+addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;const h=$('.hero'),r=h.getBoundingClientRect();
+  h.style.setProperty('--hx',(e.clientX-r.left)+'px');h.style.setProperty('--hy',Math.max(0,e.clientY-r.top)+'px');});
+
+/* ---- keyboard shortcuts: 1-5 open a system ---- */
+addEventListener('keydown',e=>{
+  if(e.ctrlKey||e.metaKey||e.altKey||$('#calwrap').classList.contains('open'))return;
+  const n=parseInt(e.key);if(n>=1&&n<=SYSTEMS.length)window.open(SYSTEMS[n-1].url,'_blank','noopener');
+});
+$('#todaybtn').onclick=()=>{view=null;drawCal();};
 
 let deferred=null;const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;$('#installLink').style.display='inline-block';
@@ -336,7 +436,7 @@ addEventListener('appinstalled',()=>$('#install').classList.remove('show'));
 if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!standalone)$('#iosTip').style.display='inline';
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
 
-render();updateClock();
+render();updateClock();checkAll();
 </script>
 </body>
 </html>
